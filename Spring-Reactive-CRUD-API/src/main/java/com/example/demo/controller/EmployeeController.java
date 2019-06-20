@@ -47,7 +47,7 @@ public class EmployeeController {
 			currentEmployee.setHighestScore(employee.getHighestScore());
 			return employeeRepository.save(currentEmployee);
 		})
-		.map(updatedCricketer -> new ResponseEntity<Employee>(updatedCricketer, HttpStatus.OK))
+		.map(updatedEmployee -> new ResponseEntity<Employee>(updatedEmployee, HttpStatus.OK))
 		.defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 	
