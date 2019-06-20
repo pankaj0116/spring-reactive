@@ -23,12 +23,12 @@ public class EmployeeController {
 	EmployeeRepository employeeRepository;
 	
 	@GetMapping("/fetch/AllEmployees")
-	public Flux<Employee> getAllCricketers() {
+	public Flux<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
 	
 	@GetMapping("/fetch/employee/{id}")
-	public Mono<ResponseEntity<Employee>> getCricketer(@PathVariable("id") String id) {
+	public Mono<ResponseEntity<Employee>> getEmployee(@PathVariable("id") String id) {
 		return employeeRepository.findById(id)
 			     .map(ResponseEntity::ok)
 			     .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -40,7 +40,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/update/employee/{id}")
-	public Mono<ResponseEntity<Employee>> updateCricketer(@PathVariable("id") String id, @RequestBody Employee employee) {
+	public Mono<ResponseEntity<Employee>> updateEmployee(@PathVariable("id") String id, @RequestBody Employee employee) {
 		return employeeRepository.findById(id).flatMap(currentEmployee -> {
 			currentEmployee.setCountry(employee.getCountry());
 			currentEmployee.setName(employee.getName());
@@ -52,7 +52,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/delete/employee/{id}")
-	public Mono<ResponseEntity<Void>> deleteCricketer(@PathVariable("id") String id) {
+	public Mono<ResponseEntity<Void>> deleteEmployee(@PathVariable("id") String id) {
 		return employeeRepository.deleteById(id).then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)
 				));
 	}
